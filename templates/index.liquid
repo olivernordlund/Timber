@@ -18,11 +18,8 @@
 {% comment %}
   Use .grid--rev so that the collection tags appear below the products on mobile
 {% endcomment %}
-{% for product in collections.catalog.products %}
-{% paginate collection.products by 12 %}
-{% for product in collection.products %}
-
-
+{% assign collection = collections[settings.catalog] %}
+{% paginate collection.products by 20 %}
 <div class="grid--rev">
   <div class="grid__item large--three-quarters">
 
@@ -165,6 +162,4 @@
   </div>
 
 </div>
-{% endfor %}
-{% endpaginate %}
-{% endfor %}
+  {% endpaginate %}
