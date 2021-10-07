@@ -20,6 +20,8 @@
 {% endcomment %}
 {% for product in collections.catalog.products %}
 {% paginate collection.products by 12 %}
+{% for product in collection.products %}
+
 
 <div class="grid--rev">
   <div class="grid__item large--three-quarters">
@@ -163,6 +165,6 @@
   </div>
 
 </div>
-
+{% endfor %}
 {% endpaginate %}
 {% endfor %}
