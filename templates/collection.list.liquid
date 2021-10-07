@@ -88,6 +88,10 @@
             <div class="grid__item large--one-fifth large--display-table-cell medium--one-third">
               <a href="{{ product.url | within: collection }}">
                 <img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" class="grid__image">
+                {% for image in product.images %}
+                <img src="{{ image.src | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}">
+                {% endfor %}
+
               </a>
             </div>
             <div class="grid__item large--four-fifths large--display-table-cell medium--two-thirds">
@@ -135,7 +139,7 @@
             <input min="1" type="number" id="quantity" name="quantity" value="1"/>
             <input type="submit" value="Add to cart" class="btn" />
           </form>
-          
+
         </div>
 
       {% else %}
