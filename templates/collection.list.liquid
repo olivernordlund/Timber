@@ -87,9 +87,8 @@
           <div class="grid large--display-table">
             <div class="grid__item large--one-fifth large--display-table-cell medium--one-third">
               <a href="{{ product.url | within: collection }}">
-                <img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" class="grid__image">
                 {% for image in product.images %}
-                <img src="{{ image.src | img_url: 'medium' }}" alt="{{ image.alt | escape }}">
+                <img src="{{ image.src | img_url: 'medium' }}" alt="{{ image.alt | escape }}" class="grid__image">
                 {% endfor %}
 
               </a>
