@@ -12,7 +12,7 @@
     "favicon_enable": false,
     "footer_social_enable": false,
     "footer_newsletter_enable": false,
-    "cart_notes_enable": true,
+    "cart_notes_enable": false,
     "ajax_cart_method": "drawer",
     "social_twitter_link": "",
     "social_facebook_link": "",
