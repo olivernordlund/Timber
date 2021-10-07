@@ -89,7 +89,7 @@
               <a href="{{ product.url | within: collection }}">
                 <img src="{{ product.featured_image.src | img_url: 'medium' }}" alt="{{ product.featured_image.alt | escape }}" class="grid__image">
                 {% for image in product.images %}
-                <img src="{{ image.src | img_url: '1024x1024' }}" alt="{{ image.alt | escape }}">
+                <img src="{{ image.src | img_url: 'medium' }}" alt="{{ image.alt | escape }}">
                 {% endfor %}
 
               </a>
