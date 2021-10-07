@@ -1,59 +1,166 @@
-<!-- /templates/index.liquid -->
+<!-- /templates/collection.list.liquid -->
 {% comment %}
 
-  This is the homepage of your site.
+  By using a variation of the 'view all' parameter technique, you can create
+  a custom layout for any template by adding ?view=xxxx
 
-  More info on global variables (available on all templates):
-    - http://docs.shopify.com/themes/liquid-variables/global
+  In this example, you can have a list view of your collection page by going to
+  /collections/all?view=list
+
+  For more information on collection tags:
+    - http://docs.shopify.com/themes/liquid-variables/collection
+
+  For more information on the ?view parameter:
+    - http://docs.shopify.com/support/configuration/store-customization/can-i-show-more-than-50-products-on-my-homepage-can-i-add-a-view-all-function-to-my-collection-pages#add-view-all
+
 {% endcomment %}
 
+{% paginate collection.products by 12 %}
 
+{% comment %}
+  Use .grid--rev so that the collection tags appear below the products on mobile
+{% endcomment %}
+<div class="grid--rev">
+  <div class="grid__item large--three-quarters">
 
-{% include 'collection.list' %}
-
-<div class="grid-uniform">
-
-  {% comment %}
-    Show five collections, unless it's 'frontpage'.
-
-    Use an index variable in combination to the limit filter
-    to account for the frontpage collection being in top six returned.
-
-    Use variable isEmpty to check if no collections will be shown.
-    For empty store demo only.
-  {% endcomment %}
-  {% assign index = 1 %}
-  {% assign isEmpty = true %}
-
-  {% for collection in collections limit:6 %}
-    {% unless index > 5 %}
-
-      {% unless collection.handle == 'frontpage' %}
-        {% assign isEmpty = false %}
-        {% assign collection_item_width = 'large--one-fifth medium--one-third' %}
-        <div class="grid__item {{ collection_item_width }} text-center">
-          {% comment %}
-            Use capture to put the collection title in a variable that is used in liquid filters
-          {% endcomment %}
-          {% capture collection_title %}{{ collection.title | escape }}{% endcapture %}
-
-          <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}" class="grid__image">
-            {% if collection.image %}
-              {{ collection.image.src | img_url: 'large' | img_tag: collection_title }}
-            {% else %}
-              {{ collection.products.first.featured_image | img_url: 'large' | img_tag: collection_title }}
-            {% endif %}
-          </a>
-
-          <p>
-            <a href="{{ collection.url }}" title="{{ 'collections.general.link_title' | t: title: collection_title }}">{{ collection.title }}</a><br>
-            {{ 'collections.general.items_with_count' | t: count: collection.all_products_count }}
-          </p>
+    {% comment %}
+      Different markup if a collection description exists
+    {% endcomment %}
+    {% if collection.description != blank %}
+      <header class="section-header">
+        <div class="rte rte--header">
+          {{ collection.description }}
         </div>
-        {% assign index = index | plus: 1 %}
-      {% endunless %}
+      </header>
+      <hr>
+      <div class="section-header">
+        <div class="section-header__right">
+          {% include 'collection-sorting' %}
+        </div>
+      </div>
+    {% else %}
+      <header class="section-header">
+        <div class="section-header__right">
+          {% include 'collection-sorting' %}
+        </div>
+      </header>
+    {% endif %}
 
-    {% endunless %}
-  {% endfor %}
+    {% comment %}
+      Use class grid-uniform to have evenly sized columns clear
+      each other properly at each breakpoint.
+    {% endcomment %}
+    <div class="grid-uniform">
+
+      <!-- begin product list output -->
+      {% for product in collection.products %}
+
+        {% comment %}
+          Check if the product is on sale and set a variable to be used below.
+        {% endcomment %}
+        {% assign on_sale = false %}
+        {% if product.compare_at_price > product.price %}
+          {% assign on_sale = true %}
+        {% endif %}
+
+        {% comment %}
+          Check if the product is sold out and set a variable to be used below.
+        {% endcomment %}
+        {% assign sold_out = true %}
+        {% if product.available %}
+          {% assign sold_out = false %}
+        {% endif %}
+
+        <div class="grid__item">
+
+          {% comment %}
+            Link to your product with the 'within: collection' filter for the link to be aware of the collection.
+            This allows you to create collection-based navigation on the product page.
+
+            Results of using 'within: collection':
+            - Instead of a URL with /products/product-handle
+              you would get /collections/collection-handle/products/product-handle
+
+            For more info on navigation within a collection
+              - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
+          {% endcomment %}
+          <div class="grid large--display-table">
+            <div class="grid__item large--one-fifth large--display-table-cell medium--one-third">
+              <a href="{{ product.url | within: collection }}">
+                {% for image in product.images %}
+                <img src="{{ image.src | img_url: 'medium' }}" alt="{{ image.alt | escape }}" class="grid__image">
+                {% endfor %}
+
+              </a>
+            </div>
+            <div class="grid__item large--four-fifths large--display-table-cell medium--two-thirds">
+              <div class="grid">
+                <div class="grid__item large--three-quarters medium--two-thirds">
+                  <p class="h6">{{ product.title }}</p>
+                  <div class="rte">
+                    <p>{{ product.content | strip_html | truncatewords: 30 }}</p>
+                  </div>
+                </div>
+                <div class="grid__item large--one-quarter medium--one-third">
+                  {% comment %}
+                    You can show a leading 'from' or 'up to' by checking 'product.price_varies'
+                    if your variants have different prices.
+                  {% endcomment %}
+                  {% if on_sale %}
+                    {% if product.price_varies %}
+                      {% assign sale_price = product.price | money %}
+                      {{ 'products.product.on_sale_from_html' | t: price: sale_price }}
+                    {% else %}
+                      <strong>{{ 'products.product.on_sale' | t }}</strong>
+                      {{ product.price | money }}
+                    {% endif %}
+                  {% else %}
+                    {% if product.price_varies %}
+                      {% assign price = product.price | money %}
+                      {{ 'products.general.from_text_html' | t: price: price }}
+                    {% else %}
+                      {{ product.price | money }}
+                    {% endif %}
+                  {% endif %}
+                  {% if sold_out %}
+                    <br><strong>{{ 'products.product.sold_out' | t }}</strong>
+                  {% endif %}
+                  {% if on_sale %}
+                    <br><span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span><s>{{ product.compare_at_price | money }}</s>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form method="post" action="/cart/add">
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+            <input min="1" type="number" id="quantity" name="quantity" value="1"/>
+            <input type="submit" value="Add to cart" class="btn" />
+          </form>
+
+        </div>
+
+      {% else %}
+
+        <div class="grid__item">
+          <p>{{ 'collections.general.no_matches' | t }}</p>
+        </div>
+
+      {% endfor %}
+      <!-- //product list output -->
+
+    </div>
+
+    {% if paginate.pages > 1 %}
+      <hr>
+      <div class="pagination">
+        {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
+      </div>
+    {% endif %}
+
+  </div>
 
 </div>
+
+{% endpaginate %}
