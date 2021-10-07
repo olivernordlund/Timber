@@ -18,6 +18,9 @@
 {% comment %}
   Use .grid--rev so that the collection tags appear below the products on mobile
 {% endcomment %}
+
+{% for product in collections.catalog.products limit: 3 %}
+
 <div class="grid--rev">
   <div class="grid__item large--three-quarters">
 
@@ -160,3 +163,5 @@
   </div>
 
 </div>
+
+{% endfor %}
