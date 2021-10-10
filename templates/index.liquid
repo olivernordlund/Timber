@@ -30,7 +30,8 @@ a
       {% if collection.handle == 'catalog' %}
         {% assign isEmpty = false %}
         {% assign collection_item_width = 'large--one-fifth medium--one-third' %}
-        <div class="grid__item {{ collection_item_width }} text-center">
+        <div class="grid__item {{ collection_item_width }} text-center">{{ content_for_index }}
+
           {% comment %}
             Use capture to put the collection title in a variable that is used in liquid filters
           {% endcomment %}
