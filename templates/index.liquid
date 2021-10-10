@@ -8,7 +8,9 @@
 {% endcomment %}
 
 
-
+{% for product in collections.all.products %}
+   {% include 'product-block' %}
+{% endfor %}
 
 <div class="grid-uniform">
 
