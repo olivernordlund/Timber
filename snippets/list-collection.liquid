@@ -15,7 +15,7 @@
 
 {% endcomment %}
 
-{% paginate collections[settings.frontpage_collection].products by 12 %}
+{% for product in collections.all.products %}
 
 {% comment %}
   Use .grid--rev so that the collection tags appear below the products on mobile
@@ -163,4 +163,4 @@
 
 </div>
 
-{% endpaginate %}
+{% endfor %}
