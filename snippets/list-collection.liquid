@@ -1,7 +1,3 @@
-
-
-
-
 <!-- /templates/collection.list.liquid -->
 {% comment %}
 
@@ -18,12 +14,18 @@
     - http://docs.shopify.com/support/configuration/store-customization/can-i-show-more-than-50-products-on-my-homepage-can-i-add-a-view-all-function-to-my-collection-pages#add-view-all
 
 {% endcomment %}
-{% include 'list-collection' %}
-{% paginate collections['all'].products by 12 %}
 
+{% paginate collection.products by 12 %}
+
+{% comment %}
+  Use .grid--rev so that the collection tags appear below the products on mobile
+{% endcomment %}
 <div class="grid--rev">
   <div class="grid__item large--three-quarters">
 
+    {% comment %}
+      Different markup if a collection description exists
+    {% endcomment %}
     {% if collection.description != blank %}
       <header class="section-header">
         <div class="rte rte--header">
@@ -44,6 +46,10 @@
       </header>
     {% endif %}
 
+    {% comment %}
+      Use class grid-uniform to have evenly sized columns clear
+      each other properly at each breakpoint.
+    {% endcomment %}
     <div class="grid-uniform">
 
       <!-- begin product list output -->
