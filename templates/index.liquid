@@ -19,6 +19,7 @@
 
 {% endcomment %}
 
+{% paginate collection.products by 12 %}
 
 {% comment %}
   Use .grid--rev so that the collection tags appear below the products on mobile
@@ -165,3 +166,5 @@
   </div>
 
 </div>
+
+{% endpaginate %}
