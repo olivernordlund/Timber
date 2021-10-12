@@ -1,25 +1,6 @@
 <!-- /templates/collection.list.liquid -->
-{% comment %}
-
-  By using a variation of the 'view all' parameter technique, you can create
-  a custom layout for any template by adding ?view=xxxx
-
-  In this example, you can have a list view of your collection page by going to
-  /collections/all?view=list
-
-  For more information on collection tags:
-    - http://docs.shopify.com/themes/liquid-variables/collection
-
-  For more information on the ?view parameter:
-    - http://docs.shopify.com/support/configuration/store-customization/can-i-show-more-than-50-products-on-my-homepage-can-i-add-a-view-all-function-to-my-collection-pages#add-view-all
-
-{% endcomment %}
 
 {% for product in collections['all'].products %}
-
-
-{{ content_for_index }}
-
 
 <div class="grid--rev">
   <div class="grid__item large--three-quarters">
@@ -165,3 +146,46 @@
 </div>
 
 {% endfor %}
+
+<!-- /templates/collection.liquid -->
+<div data-section-id="{{ section.id }}" data-section-type="collection-template" data-sort-enabled="{{ section.settings.collection_sort_enable }}" data-tags-enabled="{{ section.settings.collection_tag_enable }}">
+
+  <div class="product__grid row">
+    {% for product in collection.products %}
+      {% if collection.products.size == 1 %}
+        {% assign grid_item_width = 'product' %}
+      {% else %}
+        {% assign grid_item_width = 'product' %}
+      {% endif %}
+      {% include 'product-collection-item' %}
+    {% else %}
+    {% endfor %}
+ </div>
+
+  </div>
+
+
+{% schema %}
+  {
+    "name": "Collection pages",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "vendor_show",
+        "label": "Show product vendor"
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_sort_enable",
+        "label": "Enable collection sorting",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_tag_enable",
+        "label": "Enable filtering by product tag",
+        "default": false
+      }
+    ]
+  }
+{% endschema %}
