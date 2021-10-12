@@ -1,0 +1,42 @@
+<!-- /templates/collection.liquid -->
+<div data-section-id="{{ section.id }}" data-section-type="collection-template" data-sort-enabled="{{ section.settings.collection_sort_enable }}" data-tags-enabled="{{ section.settings.collection_tag_enable }}">
+
+  <div class="product__grid row">
+    {% for product in collection.products %}
+      {% if collection.products.size == 1 %}
+        {% assign grid_item_width = 'product' %}
+      {% else %}
+        {% assign grid_item_width = 'product' %}
+      {% endif %}
+      {% include 'product-collection-item' %}
+    {% else %}
+    {% endfor %}
+ </div>
+
+  </div>
+
+
+{% schema %}
+  {
+    "name": "Collection pages",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "vendor_show",
+        "label": "Show product vendor"
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_sort_enable",
+        "label": "Enable collection sorting",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_tag_enable",
+        "label": "Enable filtering by product tag",
+        "default": false
+      }
+    ]
+  }
+{% endschema %}
