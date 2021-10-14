@@ -24,28 +24,11 @@
 <div class="grid--rev">
   <div class="grid__item large--three-quarters">
 
-    {% comment %}
-      Different markup if a collection description exists
-    {% endcomment %}
-    {% if collection.description != blank %}
-      <header class="section-header">
-        <div class="rte rte--header">
-          {{ collection.description }}
-        </div>
-      </header>
-      <hr>
-      <div class="section-header">
-        <div class="section-header__right">
-          {% include 'collection-sorting' %}
-        </div>
+    <header class="section-header">
+      <div class="section-header__right">
+        {% include 'collection-sorting' %}
       </div>
-    {% else %}
-      <header class="section-header">
-        <div class="section-header__right">
-          {% include 'collection-sorting' %}
-        </div>
-      </header>
-    {% endif %}
+    </header>
 
     {% comment %}
       Use class grid-uniform to have evenly sized columns clear
@@ -76,25 +59,12 @@
         {% endif %}
 
         <div class="grid__item">
-
-          {% comment %}
-            Link to your product with the 'within: collection' filter for the link to be aware of the collection.
-            This allows you to create collection-based navigation on the product page.
-
-            Results of using 'within: collection':
-            - Instead of a URL with /products/product-handle
-              you would get /collections/collection-handle/products/product-handle
-
-            For more info on navigation within a collection
-              - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
-          {% endcomment %}
           <div class="grid large--display-table">
             <div class="grid__item large--one-fifth large--display-table-cell medium--one-third">
               <a href="{{ product.url | within: collection }}">
                 {% for image in product.images %}
                 <img src="{{ image.src | img_url: 'medium' }}" alt="{{ image.alt | escape }}" class="grid__image">
                 {% endfor %}
-
               </a>
             </div>
             <div class="grid__item large--four-fifths large--display-table-cell medium--two-thirds">
@@ -106,23 +76,6 @@
                   </div>
                 </div>
 
-                <select name="id" id="productSelect" class="product-single__variants">
-                  {% for variant in product.variants %}
-                    {% if variant.available %}
-
-                      {% comment %}
-                        Note: if you use option_selection.js, your <select> tag will be overwritten, meaning what you have inside <option> will not reflect what you coded below.
-                      {% endcomment %}
-                      <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
-
-                    {% else %}
-                      <option disabled="disabled">
-                        {{ variant.title }} - {{ 'products.product.sold_out' | t }}
-                      </option>
-                    {% endif %}
-                  {% endfor %}
-                </select>
-                
                 <div class="grid__item large--one-quarter medium--one-third">
                   {% comment %}
                     You can show a leading 'from' or 'up to' by checking 'product.price_varies'
