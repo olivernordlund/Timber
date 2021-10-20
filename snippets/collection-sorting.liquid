@@ -1,12 +1,12 @@
 <!-- /snippets/collection-sorting.liquid -->
 
 {% comment %}
-  Toggle between collection.liquid and collection.list.liquid with the
+  Toggle between collection.grid.liquid and collection.list.liquid with the
   ?view= parameter.
 {% endcomment %}
 
 <div class="collection-view">
-  <button type="button" title="{{ 'collections.general.grid_view' | t }}" class="change-view{% unless template contains 'list' %} change-view--active{% endunless %}" data-view="grid">
+  <button type="button" title="{{ 'collections.general.grid_view' | t }}" class="change-view{% if template contains 'grid' %} change-view--active{% endif %}" data-view="grid">
     <span class="icon-fallback-text">
       <span>{{ 'collections.general.grid_view' | t }}</span>
     </span>
