@@ -18,6 +18,11 @@
 {% comment %}
   Use .grid--rev so that the collection tags appear below the products on mobile
 {% endcomment %}
+
+
+{% section 'collection-template' %}
+
+
 {% for collection in collections limit:6 %}
     {% if collection.handle == 'catalog' %}
 
