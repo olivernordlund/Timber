@@ -22,6 +22,7 @@
         "settings": {
           "vendor_show": true,
           "collection_sort_enable": true,
+          "homepage_collection": "All",
           "collection_tag_enable": true
         }
       }
