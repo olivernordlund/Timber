@@ -16,6 +16,16 @@
     "ajax_cart_method": "drawer",
     "social_twitter_link": "",
     "social_facebook_link": "",
+    "sections": {
+      "collection-template": {
+        "type": "collection-template",
+        "settings": {
+          "vendor_show": true,
+          "collection_sort_enable": true,
+          "collection_tag_enable": true
+        }
+      }
+    },
     "content_for_index": [
 
     ]
