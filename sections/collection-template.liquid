@@ -98,12 +98,9 @@
           <label class="">
             <input name="id" type="radio" {% if variant == product.selected_or_first_available_variant %} checked="checked" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">
            <select id="cars" name="cars">
-  <option value="volvo">Volvo</option>
-  <option value="saab">Saab</option>
-  <option value="fiat">Fiat</option>
-  <option value="audi">Audi</option>
-</select>
-            
+           	<option value="{{ variant.option1 }}">{{ variant.option1 }}</option>
+		</select>
+
             <div class="radio_opt">
               <span class="radio_opt-content">{{ variant.option1 }}</span>
             </div>
