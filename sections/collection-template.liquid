@@ -11,30 +11,12 @@
 
     THIS IS THE COLLECTION TEMPLATE
     
-    {% if collection.description != blank %}
-      <header class="section-header">
-        <div class="rte rte--header">
-          {{ collection.description }}
-        </div>
-      </header>
-      <hr>
-      <div class="section-header">
-        <div class="section-header__right">
-          {% include 'collection-sorting' %}
-        </div>
-      </div>
-    {% else %}
       <header class="section-header">
         <div class="section-header__right">
           {% include 'collection-sorting' %}
         </div>
       </header>
-    {% endif %}
-
-    {% comment %}
-      Use class grid-uniform to have evenly sized columns clear
-      each other properly at each breakpoint.
-    {% endcomment %}
+    
     <div class="grid-uniform">
 
       <!-- begin product list output -->
