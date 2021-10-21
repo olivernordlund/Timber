@@ -75,6 +75,11 @@
                   {% if on_sale %}
                     <br><span class="visually-hidden">{{ 'products.general.regular_price' | t }}</span><s>{{ product.compare_at_price | money }}</s>
                   {% endif %}
+                  
+                  
+      <h4 class="colorway">
+        {{ product.variants.first.option2}}
+      </h4>
                 </div>
               </div>
             </div>
