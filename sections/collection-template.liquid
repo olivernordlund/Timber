@@ -4,11 +4,8 @@
 <!-- /templates/collection.list.liquid -->
 
 
-{% paginate collection.products by 12 %}
+{% paginate collection.products by 24 %}
 
-{% comment %}
-  Use .grid--rev so that the collection tags appear below the products on mobile
-{% endcomment %}
 <div class="grid--rev">
   <div class="grid__item large--three-quarters">
 
