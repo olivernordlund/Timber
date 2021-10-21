@@ -91,22 +91,13 @@
             
             {% for variant in product.variants %}
 
-          {% if variant.available %}
             
               {% for variant in product.variants %}
                 <option value="{{ variant.id }}" {%- if variant == current_variant %} selected="selected" {%- endif -%} data-sku="{{ variant.sku }}">
                   {{ variant.option1 }}{%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
                 </option>
               {% endfor %}
-            
-
-          {% else %}
-
-       
-          {% endif %}
                           
-
-
           {% endfor %}
                                                     </select>
 
