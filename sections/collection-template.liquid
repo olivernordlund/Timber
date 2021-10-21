@@ -105,6 +105,33 @@
     </div>
 
   </div>
+  
+        <div id="accordion">
+        <h4 class="accordion-toggle">Sizing</h4>
+        <div class="accordion-content">
+          {% for tag in product.tags %}
+          {% if tag contains 'sneaker' %}
+          {% include 'sizeguide-all' %}
+          {% endif %}
+          
+           {% if tag contains 'vulc-canvas' %}
+          	{% include 'sizeguide-canvas' %}
+          {% endif %}
+          
+           {% if tag contains 'slipon' %}
+          	{% include 'sizeguide-canvas2' %}
+          {% endif %}
+          
+          
+          {% endfor %}
+
+        </div>
+        <h4 class="accordion-toggle">Delivery</h4>
+        <div class="accordion-content">
+          <p class="detail-list__text">Free worldwide express service shipping. Shipping takes approximately 1 week via express service to your nearest post office. 
+          </p>
+        </div>
+      </div>
 
 </div>
 
