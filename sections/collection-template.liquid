@@ -96,6 +96,17 @@
               {% else %}
 
           {% if variant.available %}
+            
+            <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
+              {% for variant in product.variants %}
+                <option value="{{ variant.id }}"
+                  {%- if variant == current_variant %} selected="selected" {%- endif -%}
+                >
+                  {{ variant.title }}  {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+                </option>
+              {% endfor %}
+            </select>
+            
           <label class="">
             <input name="id" type="radio" {% if variant == product.selected_or_first_available_variant %} checked="checked" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">
 
