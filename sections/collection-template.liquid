@@ -99,20 +99,11 @@
           {% if variant.available %}
             
               {% for variant in product.variants %}
-                <option value="{{ variant.id }}"
-                  {%- if variant == current_variant %} selected="selected" {%- endif -%}
-                >
+                <option value="{{ variant.id }}" {%- if variant == current_variant %} selected="selected" {%- endif -%} data-sku="{{ variant.sku }}">
                   {{ variant.option1 }}{%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
                 </option>
               {% endfor %}
             
-          <label class="">
-            <input name="id" type="radio" {% if variant == product.selected_or_first_available_variant %} checked="checked" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">
-
-            <div class="radio_opt">
-              <span class="radio_opt-content">{{ variant.option1 }}</span>
-            </div>
-          </label>
 
           {% else %}
 
