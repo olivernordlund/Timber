@@ -102,7 +102,7 @@
                 <option value="{{ variant.id }}"
                   {%- if variant == current_variant %} selected="selected" {%- endif -%}
                 >
-                  {{ variant.title }}  {%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
+                  {{ variant.option1 }}{%- if variant.available == false %} - {{ 'products.product.sold_out' | t }}{% endif %}
                 </option>
               {% endfor %}
             </select>
