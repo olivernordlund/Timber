@@ -88,8 +88,6 @@
           <form method="post" action="/cart/add">
             
                         <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
-
-            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
             
             {% for variant in product.variants %}
 
