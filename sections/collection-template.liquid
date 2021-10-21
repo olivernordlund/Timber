@@ -87,12 +87,15 @@
 
           <form method="post" action="/cart/add">
             
-                        
+            
+            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+            
             {% for variant in product.variants %}
 
               {% if product.variants.size == 1 %}
               {% else %}
 
+          {% if variant.available %}
             
             <select name="id" id="ProductSelect-{{ section.id }}" class="product-form__variants no-js">
               {% for variant in product.variants %}
@@ -104,7 +107,24 @@
               {% endfor %}
             </select>
             
-      
+          <label class="">
+            <input name="id" type="radio" {% if variant == product.selected_or_first_available_variant %} checked="checked" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">
+
+            <div class="radio_opt">
+              <span class="radio_opt-content">{{ variant.option1 }}</span>
+            </div>
+          </label>
+
+          {% else %}
+
+          <label class="sold-out ">
+            <input name="id" type="radio" disabled="disabled">
+            <div class="radio_opt">
+              <span class="radio_opt-content">{{ variant.option1 }}</span>
+            </div>
+          </label>
+
+          {% endif %}
           {% endif %}
 
           {% endfor %}
