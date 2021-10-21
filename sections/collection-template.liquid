@@ -34,17 +34,6 @@
 
         <div class="grid__item">
 
-          {% comment %}
-            Link to your product with the 'within: collection' filter for the link to be aware of the collection.
-            This allows you to create collection-based navigation on the product page.
-
-            Results of using 'within: collection':
-            - Instead of a URL with /products/product-handle
-              you would get /collections/collection-handle/products/product-handle
-
-            For more info on navigation within a collection
-              - http://docs.shopify.com/support/your-store/collections/how-to-navigate-within-a-collection
-          {% endcomment %}
           <div class="grid large--display-table">
             <div class="grid__item large--one-fifth large--display-table-cell medium--one-third">
               <a href="{{ product.url | within: collection }}">
@@ -63,10 +52,7 @@
                   </div>
                 </div>
                 <div class="grid__item large--one-quarter medium--one-third">
-                  {% comment %}
-                    You can show a leading 'from' or 'up to' by checking 'product.price_varies'
-                    if your variants have different prices.
-                  {% endcomment %}
+
                   {% if on_sale %}
                     {% if product.price_varies %}
                       {% assign sale_price = product.price | money %}
@@ -112,13 +98,6 @@
       <!-- //product list output -->
 
     </div>
-
-    {% if paginate.pages > 1 %}
-      <hr>
-      <div class="pagination">
-        {{ paginate | default_pagination | replace: '&laquo; Previous', '&larr;' | replace: 'Next &raquo;', '&rarr;' }}
-      </div>
-    {% endif %}
 
   </div>
 
