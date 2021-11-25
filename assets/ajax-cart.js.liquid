@@ -261,7 +261,7 @@ var ajaxCart = (function(module, $) {
   itemAddedCallback = function (product) {
     $addToCart.removeClass('is-adding').addClass('is-added');
 
-    ShopifyAPI.getCart(productAddedCallback);
+    ShopifyAPI.getCart(cartUpdateCallback);
   };
 
   itemErrorCallback = function (XMLHttpRequest, textStatus) {
